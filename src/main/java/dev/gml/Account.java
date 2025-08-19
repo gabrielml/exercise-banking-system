@@ -26,7 +26,7 @@ public class Account {
      * Constructs a new Account instance with a specified initial balance and annual rate.
      * <p>
      * Initializes the account with the provided balance and annual  rate.
-     * All transation counters (deposits, withdrawals) and fees are set to their default of zero.
+     * All transaction counters (deposits, withdrawals) and fees are set to their default of zero.
      * </p>
      *
      * @param balance    The initial balance of the account.
@@ -38,6 +38,11 @@ public class Account {
         this.numberOfDeposits = 0;
         this.numberOfWithdrawals = 0;
         this.monthlyFee = 0;
+    }
+
+    public void deposit(float amount){
+        this.balance += amount;
+        this.numberOfDeposits++;
     }
 
 }
