@@ -1,6 +1,7 @@
 /**
  * @file This is the 'test class' where I will verify my logic.
  * @author gml <kickAssDeveloper@hugsForMyBugs.mock>
+ * @since 1.0
  */
 package dev.gml;
 
@@ -9,6 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit test for the Account class.
+ * <p>
+ * This class contains a suite of unit test to verify the correct behavior of the
+ * {@link Account} class and its methods, including the constructor, and the deposit,
+ * and the withdrawal functionalities.
+ * </p>
+ */
 public class AccountTest {
 
     @Test
