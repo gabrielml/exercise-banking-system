@@ -40,7 +40,17 @@ public class Account {
         this.monthlyFee = 0;
     }
 
-    public void deposit(float amount){
+    /**
+     * Deposits a specified amount of money into the account.
+     * <p>
+     * This method increases the account's balance by the deposit amount
+     * and increments the number of deposits transaction counter.
+     * </p>
+     *
+     * @param amount The amount of money to be deposited. Must be a positive value.
+     */
+    public void deposit(float amount) {
+        // TODO: (optimize) amount must be a positive value!
         this.balance += amount;
         this.numberOfDeposits++;
     }
