@@ -42,4 +42,25 @@ public class AccountTest {
         assertEquals(0, account.numberOfWithdrawals);
         assertEquals(0, account.monthlyFee);
     }
+
+    @Test
+    @DisplayName("2.It should be verified that the balance is updated after a deposit & that the number of deposits is increased.")
+    public void testDeposit() {
+        // --- Given (Arrange) ---
+        // A new account, a deposit, an expected balance and an expected deposit,
+        Account account = new Account(100.0f, 5.0f);
+        float depositAmount = 50.0f;
+        float expectedBalance = 150.0f;
+        int expectedDeposits = 1;
+
+        // --- When (Act) ---
+        // I make the account deposit,
+        account.deposit(depositAmount);
+
+        // ---  Then (Assert) ---
+        // The balance in the account must be as expected,
+        // The number of deposits made into the account must be one.
+        assertEquals(expectedBalance, account.balance);
+        assertEquals(expectedDeposits, account.numberOfDeposits);
+    }
 }
