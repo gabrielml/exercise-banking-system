@@ -27,7 +27,7 @@ public class AccountTest {
         // --- Then (Assert) ---
         // I can verify that its attributes have been initialized correctly.
         assertEquals(initialBalance, account.balance);
-        assertEquals(initialAnnualRate, account.annualrate);
+        assertEquals(initialAnnualRate, account.annualRate);
 
         assertEquals(0, account.numberOfDeposits);
         assertEquals(0, account.numberOfWithdrawals);
