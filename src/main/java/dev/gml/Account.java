@@ -55,4 +55,14 @@ public class Account {
         this.numberOfDeposits++;
     }
 
+    public void withdraw(float amount) {
+        // First checks if the withdrawal amount does not exceed the balance.
+        // Finally, if the condition is met, it updates the balance,
+        // and increments the number of withdrawals counter.
+        if (amount <= this.balance) {
+            this.balance -= amount;
+            this.numberOfWithdrawals++;
+        }
+    }
+
 }
