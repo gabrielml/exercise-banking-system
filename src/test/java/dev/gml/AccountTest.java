@@ -64,10 +64,9 @@ public class AccountTest {
         assertEquals(expectedDeposits, account.numberOfDeposits);
     }
 
-    // TODO: Continue the TDD cycle with the "withdraw" method.
     @Test
     @DisplayName("3.1. It should validate a successful withdrawal where the balance is sufficient.")
-    public void testWithdrawalWithSufficientFunds(){
+    public void testWithdrawalWithSufficientFunds() {
         // --- Given (aka Arrange) ---
         // a parameterized account object, a withdrawal amount,
         // an expected balance, and the total number of withdrawals.
@@ -89,7 +88,7 @@ public class AccountTest {
 
     @Test
     @DisplayName("3.2. It should NOT validate a withdrawal where the balance is insufficient.")
-    public void testWithdrawalWithInsufficientFunds(){
+    public void testWithdrawalWithInsufficientFunds() {
         // --- Given (aka Prepare) ---
         // a parameterized account object, a withdrawal amount,
         // an expected balance, and the total number of withdrawals.
@@ -108,4 +107,6 @@ public class AccountTest {
         assertEquals(expectedBalance, account.balance, "Balance should not change with insufficient funds.");
         assertEquals(expectedWithdrawals, account.numberOfWithdrawals, "Number of withdrawals should NOT be incremented.");
     }
+
+    // TODO: Develop the next TDD cycle for "calculate the monthly interest on the account".
 }

@@ -55,14 +55,20 @@ public class Account {
         this.numberOfDeposits++;
     }
 
+    /**
+     * Withdraws a specified amount of money from the account.
+     * <p>
+     * This method decreases the account's balance by the withdrawal amount
+     * and increments the number of withdrawals counter, provided the withdrawal
+     * amount does not exceed the current balance.
+     * </p>
+     *
+     * @param amount The amount of money to be withdrawn.
+     */
     public void withdraw(float amount) {
-        // First checks if the withdrawal amount does not exceed the balance.
-        // Finally, if the condition is met, it updates the balance,
-        // and increments the number of withdrawals counter.
         if (amount <= this.balance) {
             this.balance -= amount;
             this.numberOfWithdrawals++;
         }
     }
-
 }
