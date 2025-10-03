@@ -23,10 +23,12 @@ public class Account {
     protected float monthlyFee;
 
     /**
-     * Constructs a new Account instance with a specified initial balance and annual rate.
+     * Constructs a new Account instance with a specified initial balance and annual
+     * rate.
      * <p>
-     * Initializes the account with the provided balance and annual  rate.
-     * All transaction counters (deposits, withdrawals) and fees are set to their default of zero.
+     * Initializes the account with the provided balance and annual rate.
+     * All transaction counters (deposits, withdrawals) and fees are set to their
+     * default of zero.
      * </p>
      *
      * @param balance    The initial balance of the account.
@@ -55,4 +57,10 @@ public class Account {
         this.numberOfDeposits++;
     }
 
+    public void withdraw(float amount) {
+        if (this.balance >= amount) {
+            this.balance -= amount;
+            this.numberOfWithdrawals++;
+        }
+    }
 }
