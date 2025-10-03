@@ -13,8 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Unit test for the Account class.
  * <p>
- * This class contains a suite of unit test to verify the correct behavior of the
- * {@link Account} class and its methods, including the constructor, and the deposit,
+ * This class contains a suite of unit test to verify the correct behavior of
+ * the
+ * {@link Account} class and its methods, including the constructor, and the
+ * deposit,
  * and the withdrawal functionalities.
  * </p>
  */
@@ -30,7 +32,8 @@ public class AccountTest {
         float initialAnnualRate = 5.0f;
 
         // --- When (Act) ---
-        // I instantiate an object of this class (which is a specific object created in memory),
+        // I instantiate an object of this class (which is a specific object created in
+        // memory),
         Account account = new Account(initialBalance, initialAnnualRate);
 
         // --- Then (Assert) ---
@@ -57,12 +60,46 @@ public class AccountTest {
         // I make the account deposit,
         account.deposit(depositAmount);
 
-        // ---  Then (Assert) ---
+        // --- Then (Assert) ---
         // The balance in the account must be as expected,
         // The number of deposits made into the account must be one.
         assertEquals(expectedBalance, account.balance);
         assertEquals(expectedDeposits, account.numberOfDeposits);
     }
 
-    // TODO: Continue the TDD cycle with the "withdraw" method.
+    @Test
+    @DisplayName("3.1. It should ensure that a withdrawal correctly updates the account's balance and increments the number of withdrawals counter.")
+    public void testWithdrawalWithSufficientFunds() {
+        // --- Given (Arrange || Set up) ---
+        Account account = new Account(200.0f, 5.0f);
+        float withdrawalAmount = 50.0f;
+        float expectedBalance = 150.0f;
+        int expectedWithdrawals = 1;
+
+        // --- When (Act || Do something) ---
+        account.withdraw(withdrawalAmount);
+
+        // --- Then (Assert || Check) ---
+        assertEquals(expectedBalance, account.balance,
+                "Balance should be updated correctly after a successful withdrawal.");
+        assertEquals(expectedWithdrawals, account.numberOfWithdrawals, "Number of withdrawals should be incremented");
+    }
+
+    @Test
+    @DisplayName("3.2. It should not perform a withdrawal when funds are insufficient.")
+    public void testWithdrawalWithInsufficientFunds() {
+        // --- Give (Arrange || Set up) ---
+        Account account = new Account(50.0f, 5.0f);
+        float withdrawalAmount = 100.0f;
+        float expectedBalance = 50.0f;
+        int expectedWithdrawals = 0;
+
+        // --- When (Act || Do something) ---
+        account.withdraw(withdrawalAmount);
+
+        // --- Then (Assert || Check) ---
+        assertEquals(expectedBalance, account.balance, "Balance should not change with insufficient funds.");
+        assertEquals(expectedWithdrawals, account.numberOfWithdrawals,
+                "Number of withdrawals should not be incremented.");
+    }
 }
