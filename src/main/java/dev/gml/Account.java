@@ -6,14 +6,16 @@
 package dev.gml;
 
 /**
- * The Account class represents a basic bank account.
+ * <b> The Account class represents a basic bank account </b>
  * <p>
  * This class modes a generic bank account with core functionalities such as
- * deposits, withdrawals, amd monthly statement calculations. It serves as a
- * base class for more specialized accounts like Savings and Checking accounts.
+ * deposits, withdrawals, amd monthly statement calculations.
+ * <p>
+ * It serves as a base class for more specialized accounts like Savings and
+ * Checking accounts.
+ * <p>
  * All attributes are protected to allow for direct access by child classes
  * while maintaining encapsulation from external classes.
- * </p>
  */
 public class Account {
     protected float balance;
@@ -23,13 +25,13 @@ public class Account {
     protected float monthlyFee;
 
     /**
-     * Constructs a new Account instance with a specified initial balance and annual
-     * rate.
+     * <b> Constructs a new Account instance with a specified initial balance and
+     * annual rate </b>
      * <p>
      * Initializes the account with the provided balance and annual rate.
+     * <p>
      * All transaction counters (deposits, withdrawals) and fees are set to their
      * default of zero.
-     * </p>
      *
      * @param balance    The initial balance of the account.
      * @param annualRate The annual interest rate as a percentage.
@@ -43,11 +45,10 @@ public class Account {
     }
 
     /**
-     * Deposits a specified amount of money into the account.
+     * <b> Deposits a specified amount of money into the account </b>
      * <p>
      * This method increases the account's balance by the deposit amount
      * and increments the number of deposits transaction counter.
-     * </p>
      *
      * @param amount The amount of money to be deposited. Must be a positive value.
      */
@@ -57,6 +58,15 @@ public class Account {
         this.numberOfDeposits++;
     }
 
+    /**
+     * <b> Withdraws a specified amount of money from the account </b>
+     * <p>
+     * This method decreases the account's balance by the withdrawal amount
+     * and increments the number of withdrawals counter, provided the withdrawal
+     * amount does not exceed the current balance.
+     * 
+     * @param amount The amount of money to be withdrawn.
+     */
     public void withdraw(float amount) {
         if (this.balance >= amount) {
             this.balance -= amount;

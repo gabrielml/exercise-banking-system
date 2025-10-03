@@ -11,14 +11,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Unit test for the Account class.
+ * <b> Unit test for the Account class </b>
  * <p>
  * This class contains a suite of unit test to verify the correct behavior of
- * the
- * {@link Account} class and its methods, including the constructor, and the
- * deposit,
- * and the withdrawal functionalities.
- * </p>
+ * the {@link Account} class and its methods, including the
+ * {@link Account#Account constructor}, the {@link Account#deposit deposit},
+ * and the {@link Account#withdraw withdraw} functionalities.
  */
 public class AccountTest {
 
@@ -102,4 +100,6 @@ public class AccountTest {
         assertEquals(expectedWithdrawals, account.numberOfWithdrawals,
                 "Number of withdrawals should not be incremented.");
     }
+
+    // TODO: Continue with the next TDD cycle for the `calculateMonthlyInterest` method.
 }
