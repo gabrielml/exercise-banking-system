@@ -109,4 +109,21 @@ public class AccountTest {
     }
 
     // TODO: Develop the next TDD cycle for "calculate the monthly interest on the account".
+    @Test
+    @DisplayName("4. It should correctly calculate the monthly interest and add it to the balance")
+    public void testCalculateMonthlyInterest() {
+        // --- Given ( aka Arrange || Set up || Prepare ) ---
+        float initialBalance = 1000.0f;
+        float annualRate = 6.0f;
+        float expectedFinalBalance = 1005.0f;
+
+        Account account = new Account(initialBalance, annualRate);
+
+        // --- When (aka Act || Execute ) ---
+        account.calculateMonthlyinterest();
+
+        // --- Then (aka Assert || Verify ) ---
+        // In this test we use a delta (0.001f) for float comparison to account for potential precision errors.
+        assertEquals(expectedFinalBalance,account.balance, 0.001f, "Balance should be updated with the calculated monthly interest.");
+    }
 }
