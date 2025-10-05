@@ -71,4 +71,13 @@ public class Account {
             this.numberOfWithdrawals++;
         }
     }
+
+    public void calculateMonthlyInterest() {
+        // The monthly interest rate is the `annualRate` (this is a percentage)
+        // divided by 12, then divided by 100 to convert the percentage to a
+        // decimal. Formula: balance * ((`annualRate`/12) /100).
+        float monthlyInterestRate = (this.annualRate / 12) / 100;
+        float monthlyInterest = this.balance * monthlyInterestRate;
+        this.balance += monthlyInterest;
+    }
 }

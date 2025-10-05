@@ -120,7 +120,7 @@ public class AccountTest {
         Account account = new Account(initialBalance, annualRate);
 
         // --- When (aka Act || Execute ) ---
-        account.calculateMonthlyinterest();
+        account.calculateMonthlyInterest();
 
         // --- Then (aka Assert || Verify ) ---
         // In this test we use a delta (0.001f) for float comparison to account for potential precision errors.
