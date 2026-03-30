@@ -8,8 +8,8 @@ package dev.gml;
 /**
  * The Account class represents a basic bank account.
  * <p>
- * This class modes a generic bank account with core functionalities such as
- * deposits, withdrawals, amd monthly statement calculations. It serves as a
+ * This class models a generic bank account with core functionalities such as
+ * deposits, withdrawals, and monthly statement calculations. It serves as a
  * base class for more specialized accounts like Savings and Checking accounts.
  * All attributes are protected to allow for direct access by child classes
  * while maintaining encapsulation from external classes.
@@ -72,12 +72,30 @@ public class Account {
         }
     }
 
+    /**
+     * Calculates the monthly interest and adds it to the account balance.
+     * <p>
+     *     The monthly interest is derived from the annual rate by dividing it by 12
+     *     to get the monthly rate, then dividing by 100 to convert the percentage
+     *     into a decimal factor. The resulting interest amount is added directly
+     *     to the balance.
+     * </p>
+     *
+     * <p>Formula: {@code balance += balance * ((annualRate / 12) / 100)}</p>
+     *
+     * <p>Edge cases:</p>
+     * <ul>
+     *     <li>If the balance is zero, no interest is generated.</li>
+     *     <li>If the annual rate is zero, the balance remains unchanged.</li>
+     * </ul>
+     */
     public void calculateMonthlyInterest() {
-        // The monthly interest rate is the `annualRate` (this is a percentage)
-        // divided by 12, then divided by 100 to convert the percentage to a
-        // decimal. Formula: balance * ((`annualRate`/12) /100).
         float monthlyInterestRate = (this.annualRate / 12) / 100;
         float monthlyInterest = this.balance * monthlyInterestRate;
         this.balance += monthlyInterest;
     }
 }
+
+// TODO: Create "Monthly statement method".
+//  It should update the balance by subtracting the monthly fee & calculating the corresponding
+//  monthly interest (invokes the previous method) [create it in "feat/account-monthly-statement"]
