@@ -108,7 +108,6 @@ public class AccountTest {
         assertEquals(expectedWithdrawals, account.numberOfWithdrawals, "Number of withdrawals should NOT be incremented.");
     }
 
-    // TODO: Develop the next TDD cycle for "calculate the monthly interest on the account".
     @Test
     @DisplayName("4. It should correctly calculate the monthly interest and add it to the balance")
     public void testCalculateMonthlyInterest() {
@@ -125,5 +124,45 @@ public class AccountTest {
         // --- Then (aka Assert || Verify ) ---
         // In this test we use a delta (0.001f) for float comparison to account for potential precision errors.
         assertEquals(expectedFinalBalance,account.balance, 0.001f, "Balance should be updated with the calculated monthly interest.");
+    }
+
+    @Test
+    @DisplayName("4.1. It should NOT change the balance when the balance is zero.")
+    public void testCalculateMonthlyInterestWithZeroBalance() {
+        // --- Given (Arrange) ---
+        // An account with a zero balance - multiplying by zero should
+        // produce zero interest, leaving the balance unchanged.
+        float initialBalance = 0.0f;
+        float annualRate = 6.0f;
+        float expectedFinalBalance = 0.0f;
+
+        Account account = new Account(initialBalance, annualRate);
+
+        // --- When (Act) ---
+        account.calculateMonthlyInterest();
+
+        // --- Then (Assert) ---
+        assertEquals(expectedFinalBalance, account.balance, 0.001f,
+            "Balance should remain zero when there are no funds to accrue interest on.");
+    }
+
+    @Test
+    @DisplayName("4.2. It should NOT change the balance when the annual rate is zero.")
+    public void testCalculateMonthlyInterestWithZeroAnnualRate() {
+        // --- Given (Arrange) ---
+        // An account with a 0% annual rate - no interest should
+        // be generated regardless of the balance.
+        float initialBalance = 1000.0f;
+        float annualRate = 0.0f;
+        float expectedFinalBalance = 1000.0f;
+
+        Account account = new Account(initialBalance, annualRate);
+
+        // --- When (Act) ---
+        account.calculateMonthlyInterest();
+
+        // --- Then (Assert) ---
+        assertEquals(expectedFinalBalance, account.balance, 0.001f,
+            "Balance should remain unchanged when the annual rate is zero.");
     }
 }
