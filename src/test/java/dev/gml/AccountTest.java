@@ -165,4 +165,83 @@ public class AccountTest {
         assertEquals(expectedFinalBalance, account.balance, 0.001f,
             "Balance should remain unchanged when the annual rate is zero.");
     }
+
+    @Test
+    @DisplayName("5.1. It should only apply monthly interest when the monthly fee is zero.")
+    public void testMonthlyStatementWithZeroFee() {
+        // --- Given (Arrange) ---
+        // An account with no monthly fee set -- The statement should
+        // behave identically to calling "calculateMonthlyInterest()" directly.
+        // balance = 1000.0f, annualRate = 6.0f, monthlyFee = 0.0f (default)
+        // Step 1: 1000.0 - 0.0 = 1000.0
+        // Step 2: 1000.0 * (6.0 / 12 / 100) = 1000.0 * 0.005 = 5.0
+        // Final: 1000.0 + 5.0 = 1005.0
+        float initialBalance = 1000.0f;
+        float annualRate = 6.0f;
+        float expectedFinalBalance = 1005.0f;
+
+        Account account = new Account(initialBalance, annualRate);
+
+        // --- When (Act) ---
+        account.monthlyStatement();
+
+        // --- Then (Assert) ---
+        assertEquals(expectedFinalBalance, account.balance, 0.001f,
+            "Balance should only reflect interest when monthly fee is zero."
+        );
+    }
+
+    @Test
+    @DisplayName("5.2. It should deduct the monthly fee first, then apply interest on the reduced balance.")
+    public void testMonthlyStatementWithNonZeroFee() {
+        // --- Given (Arrange) ---
+        // An account with a monthly fee -- the fee must be subtracted before
+        // interest is calculated, so interest accrues on the reduced balance.
+        // balance = 1000.0f, annualRate = 6.0f. monthlyFee = 50.0f
+        // Step 1: 1000.0 - 50.0 = 950.0
+        // Step 2:  950.0 * (6.0 / 12 / 100) = 950.0 * 0.005 = 4.75
+        // Final: 950.0 + 4.75 = 954.75
+        float initialBalance = 1000.0f;
+        float annualRate = 6.0f;
+        float monthlyFee = 50.0f;
+        float expectedFinalBalance = 954.75f;
+
+        Account account = new Account(initialBalance, annualRate);
+        account.monthlyFee = monthlyFee;
+
+        // --- When (Act) ---
+        account.monthlyStatement();
+
+        // --- Then (Assert) ---
+        assertEquals(expectedFinalBalance, account.balance, 0.001f,
+            "Fee should be deducted first, then interest applied on the reduced balance."
+        );
+    }
+
+    @Test
+    @DisplayName("5.3. It should produce a zero balance when the monthly fee equals the full balance.")
+    public void testMonthlyStatementWhenFeeEqualsBalance() {
+        // --- Given (Arrange) ---
+        // An account where the monthly fee consumes the entire balance.
+        // After deduction the balance is zero, so no interest is generated.
+        // balance = 1000.0f, annualRate = 6.0f, monthlyFee = 1000.0f
+        // Step 1: 1000.0 - 1000.0 = 0.0
+        // Step 2: 0.0 * 0.005 = 0.0
+        // Final: 0.0
+        float initialBalance = 1000.0f;
+        float annualRate = 6.0f;
+        float monthlyFee = 1000.0f;
+        float expectedFinalBalance = 0.0f;
+
+        Account account = new Account(initialBalance, annualRate);
+        account.monthlyFee = monthlyFee;
+
+        // --- When (Act) ---
+        account.monthlyStatement();
+
+        // --- Then (Assert) ---
+        assertEquals(expectedFinalBalance, account.balance, 0.001f,
+            "Balance should be zero when the fee consumes the entire balance."
+        );
+    }
 }
