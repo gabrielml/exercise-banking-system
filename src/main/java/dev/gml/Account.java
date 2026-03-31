@@ -94,8 +94,10 @@ public class Account {
         float monthlyInterest = this.balance * monthlyInterestRate;
         this.balance += monthlyInterest;
     }
+    
+    public void monthlyStatement() {
+        this.balance -= this.monthlyFee;
+        calculateMonthlyInterest();
+    }
 }
 
-// TODO: Create "Monthly statement method".
-//  It should update the balance by subtracting the monthly fee & calculating the corresponding
-//  monthly interest (invokes the previous method) [create it in "feat/account-monthly-statement"]
