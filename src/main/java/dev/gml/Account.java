@@ -94,8 +94,42 @@ public class Account {
         float monthlyInterest = this.balance * monthlyInterestRate;
         this.balance += monthlyInterest;
     }
+    
+    /**
+     * Generates the monthly statement for the account.
+     * <p>
+     *    This method applies two operations in strict order:
+     * </p>
+     * <ol>
+     *   <li>Deducts the {@code monthlyFee} from the current balance.</li>
+     *   <li>Calls {@link #calculateMonthlyInterest()} to apply interest
+     *       on the already-reduced balance.</li>
+     * </ol>
+     * 
+     * <p>
+     *      The order matters: interest is always calculated <em>after</em> the
+     *      fee is deducted, so the fee reduces the principal on which interest
+     *      accrues that month.
+     * </p>
+     * 
+     * <p>Edge cases:</p>
+     * <ul>
+     *      <li>If {@code monthlyFee} is zero, this method behaves identically
+     *          to calling {@link #calculateMonthlyInterest()} directly.</li>
+     *      <li>If {@code monthlyFee} equals the full balance, the balance
+     *          reaches zero and no interest is generated.</li>
+     * </ul>
+     * 
+     * <p>
+     *      <strong>Subclass contract:</strong> subclasses that override this
+     *      method should apply their own commission rules to {@code monthlyFee}
+     *      <em>before</em> invoking {@code super.monthlyStatement()}, so that
+     *      the adjusted fee flows correctly into both steps above.
+     * </p>
+     */
+    public void monthlyStatement() {
+        this.balance -= this.monthlyFee;
+        calculateMonthlyInterest();
+    }
 }
 
-// TODO: Create "Monthly statement method".
-//  It should update the balance by subtracting the monthly fee & calculating the corresponding
-//  monthly interest (invokes the previous method) [create it in "feat/account-monthly-statement"]
