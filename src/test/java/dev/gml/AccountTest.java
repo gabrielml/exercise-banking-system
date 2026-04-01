@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit test for the Account class.
@@ -243,5 +244,60 @@ public class AccountTest {
         assertEquals(expectedFinalBalance, account.balance, 0.001f,
             "Balance should be zero when the fee consumes the entire balance."
         );
+    }
+
+    @Test
+    @DisplayName("6.1. It should return a string containing all attributes at their initial values.")
+    public void testPrintDefaultState(){
+        // --- Given (Arrange) ---
+        // A freshly constructed account -- all five attributes should appear
+        // in the returned string with their constructor/default values.
+        Account account = new Account(1000.0f, 6.0f);
+
+        // --- When (Act) ---
+        String result = account.print();
+
+        // --- Then (Assert) ---
+        // Each attribute value must be present somewhere in the output string.
+        // We use contains() so the test is not tied to a specific format.
+        assertTrue(result.contains("1000"), "Output should contain the balance.");
+        assertTrue(result.contains("6"), "Output should contain the annual rate.");
+        assertTrue(result.contains("0"), "Output should contain the deposit counter.");
+    }
+
+    @Test
+    @DisplayName("6.2. It should reflect updated counters after a deposit and a withdrawal.")
+    public void testPrintAfterTransactions() {
+        // --- Given (Arrange) ---
+        // An account that has had one deposit and one withdrawal.
+        // The counters must be visible in the printed output.
+        Account account = new Account(1000.0f, 6.0f);
+        account.deposit(200.0f);
+        account.withdraw(100.0f);
+
+        // --- When (Act) ---
+        String result = account.print();
+
+        // --- Then (Assert) ---
+        // The updated balance (1100.0), deposit counter (1),
+        // and withdrawal counter (1) must all appear in the output.
+        assertTrue(result.contains("1100"), "Output should contain the updated balance.");
+        assertTrue(result.contains("1"), "Output should contain the deposit/withdrawal counters.");
+    }
+
+    @Test
+    @DisplayName("6.3. It should reflect the monthly fee when it has been set to a non-zero value.")
+    public void testPrintWithNonZeroFee() {
+        // --- Given (Arrange) ---
+        // An account where monthlyFee has been explicitly set,
+        // the fee value must appear in the printed output.
+        Account account = new Account(1000.0f, 6.0f);
+        account.monthlyFee = 50.0f;
+
+        // --- When (Act) ---
+        String result = account.print();
+
+        // --- Then (Assert) ---
+        assertTrue(result.contains("50"), "Output should contain the monthly fee.");
     }
 }

@@ -94,7 +94,7 @@ public class Account {
         float monthlyInterest = this.balance * monthlyInterestRate;
         this.balance += monthlyInterest;
     }
-    
+
     /**
      * Generates the monthly statement for the account.
      * <p>
@@ -105,13 +105,13 @@ public class Account {
      *   <li>Calls {@link #calculateMonthlyInterest()} to apply interest
      *       on the already-reduced balance.</li>
      * </ol>
-     * 
+     *
      * <p>
      *      The order matters: interest is always calculated <em>after</em> the
      *      fee is deducted, so the fee reduces the principal on which interest
      *      accrues that month.
      * </p>
-     * 
+     *
      * <p>Edge cases:</p>
      * <ul>
      *      <li>If {@code monthlyFee} is zero, this method behaves identically
@@ -119,7 +119,7 @@ public class Account {
      *      <li>If {@code monthlyFee} equals the full balance, the balance
      *          reaches zero and no interest is generated.</li>
      * </ul>
-     * 
+     *
      * <p>
      *      <strong>Subclass contract:</strong> subclasses that override this
      *      method should apply their own commission rules to {@code monthlyFee}
@@ -131,5 +131,31 @@ public class Account {
         this.balance -= this.monthlyFee;
         calculateMonthlyInterest();
     }
-}
 
+    /**
+     * Returns a formatted string containing all account attributes.
+     * <p>
+     *     This method provides a human-readable snapshot of the account's current
+     *     state, including its balance, transaction counters, annual rate, and
+     *     monthly fee. It is intended for reporting and debugging purposes.
+     * </p>
+     *
+     * <p>
+     *     Subclasses should override this method to include any additional
+     *     attributes specific to their account type (e.g. overdraft for
+     *     {@code CheckingAccount}, or active status for {@code SavingsAccount}),
+     *     while still conveying the core fields listed here.
+     * </p>
+     *
+     * @return a string containing the values of {@code balance},
+     *          {@code numberOfDeposits}, {@code numberOfWithdrawals},
+     *          {@code annualRate}, and {@code monthlyFee}.
+     */
+    public String print() {
+        return "Balance: " + this.balance
+            + " | Deposits: " + this.numberOfDeposits
+            + " | Withdrawals: " + this.numberOfWithdrawals
+            + " | Annual rate: " + this.annualRate
+            + " | Monthly fee: " + this.monthlyFee;
+    }
+}
