@@ -132,6 +132,25 @@ public class Account {
         calculateMonthlyInterest();
     }
 
+    /**
+     * Returns a formatted string containing all account attributes.
+     * <p>
+     *     This method provides a human-readable snapshot of the account's current
+     *     state, including its balance, transaction counters, annual rate, and
+     *     monthly fee. It is intended for reporting and debugging purposes.
+     * </p>
+     *
+     * <p>
+     *     Subclasses should override this method to include any additional
+     *     attributes specific to their account type (e.g. overdraft for
+     *     {@code CheckingAccount}, or active status for {@code SavingsAccount}),
+     *     while still conveying the core fields listed here.
+     * </p>
+     *
+     * @return a string containing the values of {@code balance},
+     *          {@code numberOfDeposits}, {@code numberOfWithdrawals},
+     *          {@code annualRate}, and {@code monthlyFee}.
+     */
     public String print() {
         return "Balance: " + this.balance
             + " | Deposits: " + this.numberOfDeposits
@@ -140,4 +159,3 @@ public class Account {
             + " | Monthly fee: " + this.monthlyFee;
     }
 }
-
