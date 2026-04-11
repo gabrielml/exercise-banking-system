@@ -1,3 +1,8 @@
+/**
+ * @file This is the 'test class' where I will verify my logic.
+ * @author gml <kickAssDeveloper@hugsForMyBugs.mock>
+ * @since 1.0
+ */
 package dev.gml;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -6,6 +11,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for the {@link SavingsAccount} class.
+ * <p>
+ *  Tests are grouped by method and follow the Red -> Green -> Refactor
+ *  TDD cycle. Each test uses the Given/When/Then structure for clarity
+ *  and maintainability.
+ * </p>
+ * 
+ * <p>
+ *  Boundary value for the active/inactive rule: a balance of 
+ *  {@code 10000.00f} is considered active; anything below is
+ *  inactive.
+ * </p>
+ */
 public class SavingsAccountTest {
 
     // =========================================
