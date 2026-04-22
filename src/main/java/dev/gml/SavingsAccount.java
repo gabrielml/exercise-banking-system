@@ -49,5 +49,11 @@ public class SavingsAccount extends Account {
         super(balance, annualRate);
         this.isActive = balance >= 10000.00f;
     }
+
+    public void deposit(float amount) {
+        if(this.isActive) {
+            super.deposit(amount);
+        }
+    }
     
 }
