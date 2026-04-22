@@ -50,6 +50,21 @@ public class SavingsAccount extends Account {
         this.isActive = balance >= 10000.00f;
     }
 
+    /**
+     * Deposits a specified amount into the account, only if the account is active.
+     * <p>
+     *  If the account is inactive (i.e. {@code balance < 10000}), the deposit is
+     *  silenly ignored and neither the balance nor the deposit counter are updated.
+     * </p>
+     * 
+     * <p>
+     *  When the account is active, this method delegates entirely to
+     *  {@link Account#deposit(float)} to update the balance and increment the
+     *  deposit counter, avoiding any duplication of that logic.
+     * </p>
+     * 
+     * @param amount The amount of money to be deposited. Must be a positive value.
+     */
     public void deposit(float amount) {
         if(this.isActive) {
             super.deposit(amount);
