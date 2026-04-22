@@ -5,6 +5,7 @@
  */
 package dev.gml;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -65,5 +66,67 @@ public class SavingsAccountTest {
         // It should set `is Active` to `false` when opening balance is below $10000.00
         assertFalse(account.isActive,
             "Account should be inactive when opening balance is below $10000.00");
+    }
+
+    // =========================================
+    // 2. deposit() Tests
+    // =========================================
+
+    @Test
+    @DisplayName("2.1. It should allow a deposit and update the balance when the account is active.")
+    public void testDepositOnActiveAccount() {
+        // --- Given (Arrange) ---
+        // An active account (balance >= 10000) and a deposit amount.
+        // After the deposit the balance and counter must both update.
+        float initialBalance = 10000.0f;
+        float annualRate = 6.0f;
+        float depositAmount = 500.0f;
+        float expectedBalance = 10500.0f;
+        int expectedDeposits = 1;
+        
+        // Instantiate the account.
+        SavingsAccount account = new SavingsAccount(initialBalance, annualRate);
+
+        // --- When (Act) ---
+        // The bank deposit is made.
+        account.deposit(depositAmount);
+
+        // --- Then (Assert) ---
+        // Balance should increase after deposit on an active account,
+        // And deposit counter should be incremented after a successful deposit.
+        assertEquals(expectedBalance, account.balance,
+            "Balance should increase after deposit on an active account.");
+        
+        assertEquals(expectedDeposits, account.numberOfDeposits,
+            "Deposit counter should be incremented after a successful deposit.");
+    }
+
+    @Test
+    @DisplayName("2.2. It should block a deposit and leave balance unchanged when the account is inactive.")
+    public void testDepositOnInactiveAccount(){
+        // --- Given (Arrange) ---
+        // An inactive account (balance < 10000) -- the deposit must be
+        // silently ignored and neither the balance nor the counter may change.
+        float initialBalance = 9999.99f;
+        float annualRate = 6.0f;
+        float depositAmount = 500.0f;
+        float expectedBalance = 9999.99f;
+        int expectedDeposits = 0;
+
+        // Instantiate the account:
+        SavingsAccount account = new SavingsAccount(initialBalance, annualRate);
+
+        // --- When (Act) ---
+        // The bank deposit is made in an inactive account
+        account.deposit(depositAmount);
+
+        // --- Then (Assert) ---
+        // Balance should remain unchanged.
+        // Deposit counter should NOT be incremented on an inactive account.
+        assertEquals(expectedBalance, account.balance, 0.001f,
+            "Balance should remain unchanged when depositing into an inactive account.");
+        
+        assertEquals(expectedDeposits, account.numberOfDeposits, 
+            "Deposit counter should NOT be incremented on an inactive account.");
     }
 }
