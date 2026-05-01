@@ -129,4 +129,67 @@ public class SavingsAccountTest {
         assertEquals(expectedDeposits, account.numberOfDeposits, 
             "Deposit counter should NOT be incremented on an inactive account.");
     }
+
+
+    // =========================================
+    // 3. withdraw() Tests
+    // =========================================
+
+    @Test
+    @DisplayName("3.1. It should allow a withdrawal and update the balance when the account is active.")
+    public void testWithdrawOnActiveAccount() {
+        // --- Given (Arrange) ---
+        // An active account (balance >= 10000) and a withdrawal amount
+        // within the available balance. Both the balance and the counter
+        // must update correctly.
+        float initialBalance = 10000.0f;
+        float annualRate = 6.0f;
+        float withdrawAmount = 500.0f;
+        float expectedBalance = 9500.0f;
+        int expectedWithdrawals = 1;
+
+        // Instantiate the account
+        SavingsAccount account = new SavingsAccount(initialBalance, annualRate);
+
+        // --- When (Act) ---
+        // The withdraw amount is requested.
+        account.withdraw(withdrawAmount);
+
+        // --- Then (Assert) ---
+        // The balance should decrease on this active account,
+        // and the withdrawal counter should be incremented.
+        assertEquals(expectedBalance, account.balance, 
+            "Balance should decrease after a withdrawal on an active account.");
+        assertEquals(expectedWithdrawals, account.numberOfWithdrawals,
+            "Withdrawal counter should be incremented after successful withdrawal.");
+    }
+
+    @Test
+    @DisplayName("3.2. It should block a withdrawal and leave balance unchanged when the account is inactive.")
+    public void testWithdrawOnInactiveAccount(){
+        // --- Given (Arrange) ---
+        // An inactive account (balance < 10000) -- the withdrawal must be
+        // silently ignored and neither the balance nor the counter may change.
+        float initialBalance = 9999.9f;
+        float annualRate = 6.0f;
+        float withdrawAmount = 500.0f;
+        float expectedBalance = 9999.9f;
+        int expectedWithdrawals = 0;
+
+        // Instanciate the savings account
+        SavingsAccount account = new SavingsAccount(initialBalance, annualRate);
+
+        // --- When (Act) ---
+        // The withdrawal is requested.
+        account.withdraw(withdrawAmount);
+
+        // --- Then (Assert) ---
+        // The balance of this inactive account should not change,
+        // and the withdrawal counter should remain the same.
+        assertEquals(expectedBalance, account.balance,
+            "Balance should remain unchanged when withdrawing from inactive account.");
+        assertEquals(expectedWithdrawals, account.numberOfWithdrawals,
+            "Withdrawal counter should NOT be incremented on an inactive account.");
+    }
+
 }
