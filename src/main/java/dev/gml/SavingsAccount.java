@@ -71,10 +71,26 @@ public class SavingsAccount extends Account {
         }
     }
 
+    /**
+     * Withdraws a specified amount from the account, only if the account is active.
+     * <p>
+     *  If the account is inactive (i.e., {@code balance <10000}), the withdrawal is
+     *  silently ignored and neither the balance nor the withdrawal counter are updated.
+     * </p>
+     * 
+     * <p>
+     *  When the account is active, this method delegates entirely to
+     *  {@link Account#withdraw(float)}, which applies its own guard to ensure the
+     *  withdrawal amount does not exceed the current balance. Both protections
+     *  therefore apply simultaneously on an active account: the account must be active,
+     *  and the amount must not exceed the balance.
+     * </p>
+     * 
+     * @param amount The amount of money to be withdrawn.
+     */
     public void withdraw(float amount) {
         if(this.isActive){
             super.withdraw(amount);
         }
     }
-    
 }
