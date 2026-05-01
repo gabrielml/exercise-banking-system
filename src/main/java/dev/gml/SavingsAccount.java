@@ -70,5 +70,11 @@ public class SavingsAccount extends Account {
             super.deposit(amount);
         }
     }
+
+    public void withdraw(float amount) {
+        if(this.isActive){
+            super.withdraw(amount);
+        }
+    }
     
 }
